@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import '../../Screens/step1_screen.dart';
-import '../Services/authentication.dart';
-import '../Widget/snackbar.dart';
+import 'package:flutter/material.dart'; // Importing Flutter material package
+import '../../Screens/step1_screen.dart'; // Importing Step1 screen
+import '../Services/authentication.dart'; // Importing custom authentication service
+import '../Widget/snackbar.dart'; // Importing custom snackbar widget
 
+// Defining a stateful widget for the Signup screen
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -11,29 +12,32 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  bool isLoading = false;
-  bool _termsAccepted = false;
+  final _formKey = GlobalKey<FormState>(); // Key for the form
+  final TextEditingController nameController = TextEditingController(); // Controller for name input
+  final TextEditingController emailController = TextEditingController(); // Controller for email input
+  final TextEditingController passwordController = TextEditingController(); // Controller for password input
+  bool isLoading = false; // Indicator for loading state
+  bool _termsAccepted = false; // Indicator if terms and conditions are accepted
 
   @override
   void dispose() {
+    // Disposing of controllers when the widget is removed from the widget tree
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
     nameController.dispose();
   }
 
+  // Method to handle user signup
   void signupUser() async {
     if (_formKey.currentState!.validate() && _termsAccepted) {
       setState(() {
-        isLoading = true;
+        isLoading = true; // Show loading indicator
       });
 
       print('Sending signup request...');
 
+      // Attempt to sign up the user with provided details
       String res = await AuthMethod().signupUser(
           email: emailController.text,
           password: passwordController.text,
@@ -43,7 +47,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
       if (res == "success") {
         setState(() {
-          isLoading = false;
+          isLoading = false; // Hide loading indicator
         });
 
         // Show success message
@@ -62,12 +66,12 @@ class _SignupScreenState extends State<SignupScreen> {
         );
       } else {
         setState(() {
-          isLoading = false;
+          isLoading = false; // Hide loading indicator
         });
-        showSnackBar(context, res);
+        showSnackBar(context, res); // Show error message
       }
     } else if (!_termsAccepted) {
-      showSnackBar(context, 'Please accept the terms and conditions');
+      showSnackBar(context, 'Please accept the terms and conditions'); // Show error if terms are not accepted
     }
   }
 
@@ -78,6 +82,7 @@ class _SignupScreenState extends State<SignupScreen> {
         automaticallyImplyLeading: false,
         title: Row(
           children: [
+            // Back button
             IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
@@ -88,6 +93,7 @@ class _SignupScreenState extends State<SignupScreen> {
           ],
         ),
         actions: [
+          // Button to navigate to login screen
           TextButton(
             onPressed: () {
               Navigator.pushNamed(context, '/login');
@@ -107,6 +113,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 40),
                 const Text('Full Name'),
                 const SizedBox(height: 8),
+                // Input field for full name
                 TextFormField(
                   controller: nameController,
                   decoration: const InputDecoration(
@@ -123,6 +130,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 16),
                 const Text('Email'),
                 const SizedBox(height: 8),
+                // Input field for email
                 TextFormField(
                   controller: emailController,
                   decoration: const InputDecoration(
@@ -139,13 +147,14 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 16),
                 const Text('Password'),
                 const SizedBox(height: 8),
+                // Input field for password
                 TextFormField(
                   controller: passwordController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
                   ),
-                  obscureText: true,
+                  obscureText: true, // Hide password input
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
@@ -154,6 +163,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                 ),
                 const SizedBox(height: 16),
+                // Checkbox for accepting terms and conditions
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Row(
@@ -180,6 +190,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
+                // Button to sign up the user
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.teal,
@@ -194,6 +205,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       : const Text('Sign Up', style: TextStyle(color: Colors.white)),
                 ),
                 const SizedBox(height: 16),
+                // Link to navigate to login screen
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[

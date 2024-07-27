@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import '../Login Signup/Screen/login.dart';
 import '../Login With Google/google_auth.dart';
 
+// A stateless widget that represents the Settings screen
 class SettingsScreen extends StatelessWidget {
+  // List of drawer items with their titles, icons, and routes
   final List<Map<String, dynamic>> drawerItems = [
     {'title': 'Dashboard', 'icon': Icons.dashboard, 'route': '/dashboard'},
     {'title': 'Tips', 'icon': Icons.lightbulb_outline, 'route': '/tips'},
@@ -16,6 +18,7 @@ class SettingsScreen extends StatelessWidget {
     {'title': 'Support', 'icon': Icons.support_agent, 'route': '/support'},
   ];
 
+  // The currently selected drawer item
   String _currentItemSelected = 'Settings';
 
   @override
@@ -23,22 +26,22 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Settings', // Ensure 'Settings' title is set here
+          'Settings', // The title displayed on the AppBar
           style: TextStyle(
-            color: Colors.white, // Set text color to white
+            color: Colors.white, // The color of the title text
           ),
         ),
-        centerTitle: true, // Center aligns the title horizontally
-        backgroundColor: Colors.teal, // Set the app bar background color to teal
+        centerTitle: true, // Centers the title text horizontally
+        backgroundColor: Colors.teal, // The background color of the AppBar
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
               icon: const Icon(
                 Icons.menu,
-                color: Colors.white, // Set the hamburger icon color to white
+                color: Colors.white, // The color of the menu icon
               ),
               onPressed: () {
-                Scaffold.of(context).openDrawer();
+                Scaffold.of(context).openDrawer(); // Opens the drawer when the menu icon is tapped
               },
             );
           },
@@ -46,11 +49,12 @@ class SettingsScreen extends StatelessWidget {
       ),
       drawer: Drawer(
         child: Container(
-          color: const Color(0xFF557E7E),
+          color: const Color(0xFF557E7E), // Background color of the drawer
           child: Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: Column(
               children: <Widget>[
+                // User profile information in the drawer
                 Container(
                   height: 100.0,
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -59,7 +63,7 @@ class SettingsScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 28.0,
-                        backgroundImage: AssetImage('assets/profile.png'),
+                        backgroundImage: AssetImage('assets/profile.png'), // Profile image
                       ),
                       SizedBox(width: 8.0),
                       Column(
@@ -67,17 +71,17 @@ class SettingsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'IRADUKUNDA Ange',
+                            'IRADUKUNDA Ange', // User's name
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.white, // Text color
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            'Online',
+                            'Online', // User's status
                             style: TextStyle(
-                              color: Colors.green,
+                              color: Colors.green, // Status color
                               fontSize: 16.0,
                             ),
                           ),
@@ -86,24 +90,25 @@ class SettingsScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Divider(color: Colors.white),
+                const Divider(color: Colors.white), // Divider line
+                // List of navigation items in the drawer
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: drawerItems.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
-                      leading: Icon(drawerItems[index]['icon'], color: Colors.white),
+                      leading: Icon(drawerItems[index]['icon'], color: Colors.white), // Icon for the drawer item
                       title: Text(
-                        drawerItems[index]['title'],
+                        drawerItems[index]['title'], // Title for the drawer item
                         style: TextStyle(
                           color: _currentItemSelected == drawerItems[index]['title'] ? Colors.blue[900] : Colors.white,
                           fontWeight: _currentItemSelected == drawerItems[index]['title'] ? FontWeight.bold : FontWeight.normal,
                         ),
                       ),
                       onTap: () {
-                        Navigator.pop(context); 
+                        Navigator.pop(context); // Close the drawer
                         if (_currentItemSelected != drawerItems[index]['title']) {
-                          Navigator.pushNamed(context, drawerItems[index]['route']);
+                          Navigator.pushNamed(context, drawerItems[index]['route']); // Navigate to the selected route
                         }
                       },
                     );
@@ -117,19 +122,19 @@ class SettingsScreen extends StatelessWidget {
                       children: [
                         const Divider(color: Colors.white),
                         ListTile(
-                          leading: const Icon(Icons.exit_to_app, color: Colors.white),
+                          leading: const Icon(Icons.exit_to_app, color: Colors.white), // Icon for the logout option
                           title: const Text(
-                            'Logout',
+                            'Logout', // Logout label
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.normal,
                             ),
                           ),
                           onTap: () async {
-                            await FirebaseServices().googleSignOut();
+                            await FirebaseServices().googleSignOut(); // Sign out from Google
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
+                                builder: (context) => const LoginScreen(), // Navigate to the login screen
                               ),
                             );
                           },
@@ -147,45 +152,45 @@ class SettingsScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
-            leading: const Icon(Icons.assignment_turned_in_outlined),
-            title: const Text('Reminders'),
-            trailing: const Icon(Icons.arrow_right),
+            leading: const Icon(Icons.assignment_turned_in_outlined), // Icon for the item
+            title: const Text('Reminders'), // Title of the item
+            trailing: const Icon(Icons.arrow_right), // Trailing arrow icon
             onTap: () {
               // Handle tap
             },
           ),
-          const Divider(),
+          const Divider(), // Divider line
           ListTile(
-            leading: const Icon(Icons.help_outline),
-            title: const Text('Help'),
-            trailing: const Icon(Icons.arrow_right),
+            leading: const Icon(Icons.help_outline), // Icon for the item
+            title: const Text('Help'), // Title of the item
+            trailing: const Icon(Icons.arrow_right), // Trailing arrow icon
             onTap: () {
               // Handle tap
             },
           ),
-          const Divider(),
+          const Divider(), // Divider line
           ListTile(
-            leading: const Icon(Icons.privacy_tip_outlined),
-            title: const Text('Privacy checkup'),
-            trailing: const Icon(Icons.arrow_right),
+            leading: const Icon(Icons.privacy_tip_outlined), // Icon for the item
+            title: const Text('Privacy checkup'), // Title of the item
+            trailing: const Icon(Icons.arrow_right), // Trailing arrow icon
             onTap: () {
               // Handle tap
             },
           ),
-          const Divider(),
+          const Divider(), // Divider line
           ListTile(
-            leading: const Icon(Icons.update),
-            title: const Text('Status Update'),
-            trailing: const Icon(Icons.arrow_right),
+            leading: const Icon(Icons.update), // Icon for the item
+            title: const Text('Status Update'), // Title of the item
+            trailing: const Icon(Icons.arrow_right), // Trailing arrow icon
             onTap: () {
               // Handle tap
             },
           ),
-          const Divider(),
+          const Divider(), // Divider line
           ListTile(
-            leading: const Icon(Icons.lock_outline),
-            title: const Text('Reset password'),
-            trailing: const Icon(Icons.arrow_right),
+            leading: const Icon(Icons.lock_outline), // Icon for the item
+            title: const Text('Reset password'), // Title of the item
+            trailing: const Icon(Icons.arrow_right), // Trailing arrow icon
             onTap: () {
               // Handle tap
             },

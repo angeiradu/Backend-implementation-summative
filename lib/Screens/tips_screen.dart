@@ -5,6 +5,7 @@ import '../Login Signup/Screen/login.dart';
 import '../Login With Google/google_auth.dart';
 
 class TipsScreen extends StatelessWidget {
+  // List of drawer items with titles, icons, and routes
   final List<Map<String, dynamic>> drawerItems = [
     {'title': 'Dashboard', 'icon': Icons.dashboard, 'route': '/dashboard'},
     {'title': 'Tips', 'icon': Icons.lightbulb_outline, 'route': '/tips'},
@@ -15,7 +16,7 @@ class TipsScreen extends StatelessWidget {
     {'title': 'Support', 'icon': Icons.support_agent, 'route': '/support'},
   ];
 
-  String _currentItemSelected = 'Tips';
+  String _currentItemSelected = 'Tips'; // Currently selected item in the drawer
 
   TipsScreen({super.key});
 
@@ -39,7 +40,7 @@ class TipsScreen extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                Scaffold.of(context).openDrawer();
+                Scaffold.of(context).openDrawer(); // Open drawer when the menu icon is tapped
               },
             );
           },
@@ -52,6 +53,7 @@ class TipsScreen extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20.0),
             child: Column(
               children: <Widget>[
+                // Drawer header with user profile picture and name
                 Container(
                   height: 100.0,
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -88,6 +90,7 @@ class TipsScreen extends StatelessWidget {
                   ),
                 ),
                 const Divider(color: Colors.white),
+                // List of items in the drawer
                 for (var item in drawerItems)
                   ListTile(
                     leading: Icon(item['icon'], color: Colors.white),
@@ -107,6 +110,7 @@ class TipsScreen extends StatelessWidget {
                   ),
                 const SizedBox(height: 16.0),
                 const Divider(color: Colors.white),
+                // Logout option
                 ListTile(
                   leading: const Icon(Icons.exit_to_app, color: Colors.white),
                   title: const Text(
@@ -117,7 +121,7 @@ class TipsScreen extends StatelessWidget {
                     ),
                   ),
                   onTap: () async {
-                    await FirebaseServices().googleSignOut();
+                    await FirebaseServices().googleSignOut(); // Sign out from Google
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context) => const LoginScreen(),
@@ -130,15 +134,16 @@ class TipsScreen extends StatelessWidget {
           ),
         ),
       ),
+      // StreamBuilder to fetch and display tips from Firestore
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('tips').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator()); // Show loading indicator while waiting
           }
 
           if (!snapshot.hasData || snapshot.data?.docs.isEmpty == true) {
-            return const Center(child: Text('No tips available'));
+            return const Center(child: Text('No tips available')); // Show message if no tips are available
           }
 
           final tips = snapshot.data?.docs.map((doc) {
@@ -165,9 +170,9 @@ class TipsScreen extends StatelessWidget {
               final id = tips[index]['id'] as String?;
 
               if (imageUrl != null && title != null && id != null) {
-                return _buildTipCard(context, id, imageUrl, title);
+                return _buildTipCard(context, id, imageUrl, title); // Build each tip card
               } else {
-                return const SizedBox.shrink();
+                return const SizedBox.shrink(); // Return empty space if data is missing
               }
             },
           );
@@ -175,7 +180,7 @@ class TipsScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _showTipDialog(context);
+          _showTipDialog(context); // Show dialog to add a new tip
         },
         child: const Icon(Icons.add, color: Colors.white),
         backgroundColor: Colors.teal,
@@ -186,6 +191,7 @@ class TipsScreen extends StatelessWidget {
     );
   }
 
+  // Show dialog to add or edit a tip
   Future<void> _showTipDialog(BuildContext context, [String? id]) async {
     final TextEditingController titleController = TextEditingController();
     final TextEditingController urlController = TextEditingController();
@@ -275,6 +281,7 @@ class TipsScreen extends StatelessWidget {
     );
   }
 
+  // Delete a tip from Firestore
   Future<void> _deleteTip(BuildContext context, String id) async {
     try {
       await FirebaseFirestore.instance.collection('tips').doc(id).delete();
@@ -289,6 +296,7 @@ class TipsScreen extends StatelessWidget {
     }
   }
 
+  // Build a card widget to display a tip
   Widget _buildTipCard(BuildContext context, String id, String imageUrl, String title) {
     return Card(
       elevation: 3.0,
@@ -332,7 +340,7 @@ class TipsScreen extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.edit, color: Colors.blue),
                   onPressed: () {
-                    _showTipDialog(context, id);
+                    _showTipDialog(context, id); // Show dialog to edit the tip
                   },
                 ),
                 IconButton(

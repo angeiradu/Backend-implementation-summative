@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 import '../Login Signup/Screen/login.dart';
 import '../Login With Google/google_auth.dart';
 
+// The main screen for the dashboard
 class DashboardScreen extends StatefulWidget {
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }
 
+// The state for the DashboardScreen
 class _DashboardScreenState extends State<DashboardScreen> {
+  // List of drawer items with their titles, icons, and routes
   final List<Map<String, dynamic>> drawerItems = [
     {'title': 'Dashboard', 'icon': Icons.dashboard, 'route': '/dashboard'},
     {'title': 'Tips', 'icon': Icons.lightbulb_outline, 'route': '/tips'},
@@ -21,6 +24,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     {'title': 'Support', 'icon': Icons.support_agent, 'route': '/support'},
   ];
 
+  // The currently selected drawer item
   String _currentItemSelected = 'Dashboard';
 
   @override
@@ -34,7 +38,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             return IconButton(
               icon: const Icon(Icons.menu),
               onPressed: () {
-                Scaffold.of(context).openDrawer();
+                Scaffold.of(context).openDrawer(); // Open the drawer
               },
             );
           },
@@ -47,6 +51,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             padding: const EdgeInsets.only(top: 20.0),
             child: Column(
               children: <Widget>[
+                // User profile and status display in the drawer
                 Container(
                   height: 100.0,
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -83,6 +88,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ),
                 const Divider(color: Colors.white),
+                // Display drawer items as list tiles
                 for (var item in drawerItems)
                   ListTile(
                     leading: Icon(item['icon'], color: Colors.white),
@@ -108,6 +114,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         const Divider(color: Colors.white),
+                        // Logout option
                         ListTile(
                           leading: const Icon(Icons.exit_to_app, color: Colors.white),
                           title: const Text(
@@ -118,6 +125,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ),
                           ),
                           onTap: () async {
+                            // Log out and navigate to the login screen
                             await FirebaseServices().googleSignOut();
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
@@ -139,6 +147,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Display the dashboard image
             Expanded(
               child: Stack(
                 fit: StackFit.expand,
@@ -150,6 +159,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ],
               ),
             ),
+            // Grid view with dashboard options
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
@@ -179,6 +189,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+  // Helper method to create a card for each dashboard option
   Widget _buildCard(String title, IconData icon, String route) {
     return Card(
       shape: RoundedRectangleBorder(

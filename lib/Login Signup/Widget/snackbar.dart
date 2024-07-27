@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-showSnackBar(BuildContext context, String text) {
-  return ScaffoldMessenger.of(context).showSnackBar(
+// Function to show a snackbar with a message
+void showSnackBar(BuildContext context, String text) {
+  // Show the snackbar using the ScaffoldMessenger
+  ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      content: Text(text),
+      content: Text(text), // The message to be displayed
     ),
   );
 }

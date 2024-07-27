@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../Login Signup/Screen/login.dart';
 import '../Login With Google/google_auth.dart';
 
+// A StatefulWidget for the "Check Your Process" screen
 class CheckProcessScreen extends StatefulWidget {
   const CheckProcessScreen({super.key});
 
@@ -10,6 +11,7 @@ class CheckProcessScreen extends StatefulWidget {
 }
 
 class _CheckProcessScreenState extends State<CheckProcessScreen> {
+  // A list of drawer items with their titles, icons, and routes
   final List<Map<String, dynamic>> drawerItems = [
     {'title': 'Dashboard', 'icon': Icons.dashboard, 'route': '/dashboard'},
     {'title': 'Tips', 'icon': Icons.lightbulb_outline, 'route': '/tips'},
@@ -20,19 +22,22 @@ class _CheckProcessScreenState extends State<CheckProcessScreen> {
     {'title': 'Support', 'icon': Icons.support_agent, 'route': '/support'},
   ];
 
+  // The currently selected drawer item
   String _currentItemSelected = 'Check your process';
 
-  // Controllers for text fields
+  // Controllers for the weight and height text fields
   final TextEditingController _weightController = TextEditingController();
   final TextEditingController _heightController = TextEditingController();
 
   @override
   void dispose() {
+    // Dispose the controllers to free up resources
     _weightController.dispose();
     _heightController.dispose();
     super.dispose();
   }
 
+  // Function to calculate BMI
   void _calculateBMI() {
     final String weightText = _weightController.text;
     final String heightText = _heightController.text;
@@ -51,7 +56,7 @@ class _CheckProcessScreenState extends State<CheckProcessScreen> {
     }
 
     // Calculate BMI
-    final double heightInMeters = height; // Convert height to meters
+    final double heightInMeters = height; // Assuming the input height is in meters
     if (heightInMeters <= 0) {
       _showDialog('Error', 'Height must be greater than zero.');
       return;
@@ -59,10 +64,11 @@ class _CheckProcessScreenState extends State<CheckProcessScreen> {
 
     final double bmi = weight / (heightInMeters * heightInMeters);
 
-    // Display the result
+    // Display the result in a dialog
     _showDialog('BMI Result', 'Your BMI is ${bmi.toStringAsFixed(2)}');
   }
 
+  // Function to show a dialog with a title and message
   void _showDialog(String title, String message) {
     showDialog(
       context: context,
@@ -73,7 +79,7 @@ class _CheckProcessScreenState extends State<CheckProcessScreen> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(); // Close the dialog
               },
               child: const Text('OK'),
             ),
@@ -104,7 +110,7 @@ class _CheckProcessScreenState extends State<CheckProcessScreen> {
                 color: Colors.white,
               ),
               onPressed: () {
-                Scaffold.of(context).openDrawer();
+                Scaffold.of(context).openDrawer(); // Open the drawer
               },
             );
           },
@@ -153,6 +159,7 @@ class _CheckProcessScreenState extends State<CheckProcessScreen> {
                   ),
                 ),
                 const Divider(color: Colors.white),
+                // Iterate through the drawer items and create a list tile for each
                 for (var item in drawerItems)
                   ListTile(
                     leading: Icon(item['icon'], color: Colors.white),
@@ -166,7 +173,7 @@ class _CheckProcessScreenState extends State<CheckProcessScreen> {
                     onTap: () {
                       Navigator.pop(context);
                       if (_currentItemSelected != item['title']) {
-                        Navigator.pushNamed(context, item['route']);
+                        Navigator.pushNamed(context, item['route']); // Navigate to the selected route
                       }
                     },
                   ),
@@ -187,6 +194,7 @@ class _CheckProcessScreenState extends State<CheckProcessScreen> {
                             ),
                           ),
                           onTap: () async {
+                            // Sign out from Google and navigate to the login screen
                             await FirebaseServices().googleSignOut();
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
@@ -212,7 +220,7 @@ class _CheckProcessScreenState extends State<CheckProcessScreen> {
             children: [
               Image.asset(
                 'assets/process.png',
-                fit: BoxFit.cover,
+                fit: BoxFit.cover, // Fit the image to the container
               ),
               const SizedBox(height: 16.0),
               const Text(
@@ -236,7 +244,7 @@ class _CheckProcessScreenState extends State<CheckProcessScreen> {
                 controller: _weightController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(), // Outline border for the text field
                   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
                 ),
               ),
@@ -253,7 +261,7 @@ class _CheckProcessScreenState extends State<CheckProcessScreen> {
                 controller: _heightController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(), // Outline border for the text field
                   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
                 ),
               ),
@@ -265,7 +273,7 @@ class _CheckProcessScreenState extends State<CheckProcessScreen> {
                   color: Colors.teal,
                 ),
                 child: TextButton(
-                  onPressed: _calculateBMI,
+                  onPressed: _calculateBMI, // Call the BMI calculation function
                   child: const Text(
                     'Check',
                     style: TextStyle(

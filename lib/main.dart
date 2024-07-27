@@ -1,3 +1,4 @@
+// Import necessary packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'Login Signup/Screen/signup.dart';
@@ -13,21 +14,23 @@ import 'screens/check_process_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/support_screen.dart';
 
+// Main function to initialize the app
 Future<void> main() async {
-  // Initialize Firebase
+  // Ensure widgets are bound before initializing Firebase
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  // Run your app
-  runApp(MyApp());
+  await Firebase.initializeApp(); // Initialize Firebase
+  runApp(MyApp()); // Run the MyApp widget
 }
 
+// Root widget of the application
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: FirstScreen(),
+      debugShowCheckedModeBanner: false, // Disable debug banner
+      home: FirstScreen(), // Set the initial screen
       routes: {
+        // Define routes for navigation
         '/createAccount': (context) => SignupScreen(),
         '/login': (context) => LoginScreen(),
         '/step1': (context) => Step1Screen(),
@@ -42,21 +45,23 @@ class MyApp extends StatelessWidget {
         '/support': (context) => SupportScreen(),
       },
       theme: ThemeData(
-        fontFamily: 'Newsreader',
+        fontFamily: 'Newsreader', // Set default font family
       ),
     );
   }
 }
 
+// Initial screen displayed when the app starts
 class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.black, // Set background color to black
       body: Column(
         children: [
           Stack(
             children: [
+              // Display the background image
               Container(
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: Image.asset(
@@ -66,6 +71,7 @@ class FirstScreen extends StatelessWidget {
                   height: double.infinity,
                 ),
               ),
+              // Positioned text overlay
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.3,
                 left: 0,
@@ -76,6 +82,7 @@ class FirstScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Main motivational quote
                         Text(
                           'LIFE HAS NO REMOTE.\nGET UP AND CHANGE IT YOURSELF.',
                           style: TextStyle(
@@ -86,6 +93,7 @@ class FirstScreen extends StatelessWidget {
                           textAlign: TextAlign.start,
                         ),
                         SizedBox(height: 10),
+                        // Subtitle
                         Text(
                           'Commit to be fit-',
                           style: TextStyle(
@@ -103,6 +111,7 @@ class FirstScreen extends StatelessWidget {
               ),
             ],
           ),
+          // Bottom section with buttons
           Expanded(
             child: Center(
               child: Container(
@@ -126,24 +135,26 @@ class FirstScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 50),
+                    // 'Get Started' button
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/createAccount');
+                        Navigator.pushNamed(context, '/createAccount'); // Navigate to SignupScreen
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0xFF008080),
+                          const Color(0xFF008080), // Button color
                         ),
                         foregroundColor: MaterialStateProperty.all<Color>(
-                          Colors.white,
+                          Colors.white, // Text color
                         ),
                       ),
                       child: const Text('Get Started'),
                     ),
                     const SizedBox(height: 20),
+                    // 'Log In' text
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/login');
+                        Navigator.pushNamed(context, '/login'); // Navigate to LoginScreen
                       },
                       child: Center(
                         child: RichText(

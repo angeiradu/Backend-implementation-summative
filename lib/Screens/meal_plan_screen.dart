@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import '../Login Signup/Screen/login.dart';
 import '../Login With Google/google_auth.dart';
 
+// A stateless widget that represents the Meal Plan screen
 // ignore: use_key_in_widget_constructors
 class MealPlanScreen extends StatelessWidget {
+  // List of drawer items with their titles, icons, and routes
   final List<Map<String, dynamic>> drawerItems = [
     {'title': 'Dashboard', 'icon': Icons.dashboard, 'route': '/dashboard'},
     {'title': 'Tips', 'icon': Icons.lightbulb_outline, 'route': '/tips'},
@@ -17,6 +19,7 @@ class MealPlanScreen extends StatelessWidget {
     {'title': 'Support', 'icon': Icons.support_agent, 'route': '/support'},
   ];
 
+  // The currently selected drawer item
   String _currentItemSelected = 'Meal Plan';
 
   @override
@@ -39,7 +42,7 @@ class MealPlanScreen extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                Scaffold.of(context).openDrawer();
+                Scaffold.of(context).openDrawer(); // Open the drawer
               },
             );
           },
@@ -52,6 +55,7 @@ class MealPlanScreen extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20.0),
             child: Column(
               children: <Widget>[
+                // User profile and status display in the drawer
                 Container(
                   height: 100.0,
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -88,6 +92,7 @@ class MealPlanScreen extends StatelessWidget {
                   ),
                 ),
                 const Divider(color: Colors.white),
+                // Display drawer items as list tiles
                 for (var item in drawerItems)
                   ListTile(
                     leading: Icon(item['icon'], color: Colors.white),
@@ -101,7 +106,7 @@ class MealPlanScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.pop(context);
                       if (_currentItemSelected != item['title']) {
-                        Navigator.pushNamed(context, item['route']);
+                        Navigator.pushNamed(context, item['route']); // Navigate to the selected route
                       }
                     },
                   ),
@@ -112,6 +117,7 @@ class MealPlanScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         const Divider(color: Colors.white),
+                        // Logout option
                         ListTile(
                           leading: const Icon(Icons.exit_to_app, color: Colors.white),
                           title: const Text(
@@ -122,6 +128,7 @@ class MealPlanScreen extends StatelessWidget {
                             ),
                           ),
                           onTap: () async {
+                            // Log out and navigate to the login screen
                             await FirebaseServices().googleSignOut();
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
@@ -155,6 +162,7 @@ class MealPlanScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16.0),
+            // Display meal images with clickable functionality to show a larger view
             InkWell(
               onTap: () {
                 _showImageDialog(context, 'assets/meal1.png');
@@ -200,6 +208,7 @@ class MealPlanScreen extends StatelessWidget {
     );
   }
 
+  // Function to show a dialog with a larger image
   void _showImageDialog(BuildContext context, String imagePath) {
     showDialog(
       context: context,

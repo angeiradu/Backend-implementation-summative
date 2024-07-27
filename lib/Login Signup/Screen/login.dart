@@ -1,13 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import '../../Login With Google/google_auth.dart';
-import '../../Password Forgot/forgot_password.dart';
-import '../../Screens/dashboard_screen.dart';
-import '../Services/authentication.dart';
-import '../Widget/button.dart';
-import '../Widget/snackbar.dart';
-import 'signup.dart';
+import 'package:flutter/material.dart'; // Importing necessary Flutter material package
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart'; // Importing Facebook authentication package
+import '../../Login With Google/google_auth.dart'; // Importing Google authentication service
+import '../../Password Forgot/forgot_password.dart'; // Importing forgot password screen
+import '../../Screens/dashboard_screen.dart'; // Importing dashboard screen
+import '../Services/authentication.dart'; // Importing custom authentication methods
+import '../Widget/button.dart'; // Importing a custom button widget
+import '../Widget/snackbar.dart'; // Importing a custom snackbar widget
+import 'signup.dart'; // Importing signup screen
 
+// Defining a stateful widget called LoginScreen
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -16,30 +17,34 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-  bool isLoading = false;
+  final TextEditingController emailController = TextEditingController(); // Controller for email input
+  final TextEditingController passwordController = TextEditingController(); // Controller for password input
+  final _formKey = GlobalKey<FormState>(); // Form key for validation
+  bool isLoading = false; // Loading state indicator
 
   @override
   void dispose() {
+    // Disposing of controllers when the widget is removed from the widget tree
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
 
+  // Method to handle user login
   void loginUser() async {
     if (_formKey.currentState?.validate() ?? false) {
       setState(() {
-        isLoading = true;
+        isLoading = true; // Show loading indicator
       });
+      // Attempt to log in the user with email and password
       String res = await AuthMethod().loginUser(
           email: emailController.text, password: passwordController.text);
 
       if (res == "success") {
         setState(() {
-          isLoading = false;
+          isLoading = false; // Hide loading indicator
         });
+        // Navigate to dashboard screen if login is successful
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => DashboardScreen(),
@@ -47,16 +52,17 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       } else {
         setState(() {
-          isLoading = false;
+          isLoading = false; // Hide loading indicator
         });
-        showSnackBar(context, res);
+        showSnackBar(context, res); // Show error message
       }
     }
   }
 
+  // Method to handle login with Facebook
   Future<void> _loginWithFacebook() async {
     final LoginResult result = await FacebookAuth.instance.login();
-    
+
     // Print detailed information about the login result
     print('Facebook login status: ${result.status}');
     print('Facebook login message: ${result.message}');
@@ -64,13 +70,14 @@ class _LoginScreenState extends State<LoginScreen> {
       final AccessToken accessToken = result.accessToken!;
       final userData = await FacebookAuth.instance.getUserData();
       print('User Data: $userData');
+      // Navigate to dashboard screen if login is successful
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => DashboardScreen(),
         ),
       );
     } else if (result.status == LoginStatus.failed) {
-      showSnackBar(context, result.message ?? "Facebook login failed");
+      showSnackBar(context, result.message ?? "Facebook login failed"); // Show error message
     }
   }
 
@@ -81,6 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
         automaticallyImplyLeading: false,
         title: Row(
           children: [
+            // Back button
             IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
@@ -91,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ],
         ),
         actions: [
+          // Button to navigate to signup screen
           TextButton(
             onPressed: () {
               Navigator.pushNamed(context, '/createAccount');
@@ -141,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         border: OutlineInputBorder(),
                         hintText: 'Enter your password',
                       ),
-                      obscureText: true,
+                      obscureText: true, // Hide the password input
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
@@ -154,9 +163,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const ForgotPassword(),
+                  const ForgotPassword(), // Forgot password widget
                   const SizedBox(height: 16),
-                  MyButtons(onTap: loginUser, text: "Log In"),
+                  MyButtons(onTap: loginUser, text: "Log In"), // Login button
                   const SizedBox(height: 16),
                   Row(
                     children: [
@@ -170,6 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   const SizedBox(height: 16),
+                  // Button to log in with Google
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 25, vertical: 10),
@@ -202,6 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
+                  // Button to log in with Facebook
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 25, vertical: 10),
@@ -227,6 +238,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
+                  // Link to navigate to signup screen
                   Padding(
                     padding: const EdgeInsets.only(top: 10, left: 100),
                     child: Row(

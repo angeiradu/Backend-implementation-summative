@@ -1,11 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // Firestore for database operations
+import 'package:firebase_auth/firebase_auth.dart'; // Firebase authentication for managing user sessions
+import 'package:flutter/material.dart'; // Flutter's material design package
 
-import '../Login Signup/Screen/login.dart';
-import '../Login With Google/google_auth.dart';
+import '../Login Signup/Screen/login.dart'; // Import for the login screen
+import '../Login With Google/google_auth.dart'; // Import for Google authentication
 
+// StatelessWidget for the support screen
 class SupportScreen extends StatelessWidget {
+  // List of drawer items with titles, icons, and routes
   final List<Map<String, dynamic>> drawerItems = [
     {'title': 'Dashboard', 'icon': Icons.dashboard, 'route': '/dashboard'},
     {'title': 'Tips', 'icon': Icons.lightbulb_outline, 'route': '/tips'},
@@ -16,11 +18,12 @@ class SupportScreen extends StatelessWidget {
     {'title': 'Support', 'icon': Icons.support_agent, 'route': '/support'},
   ];
 
+  // Controllers for managing text input fields
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _problemController = TextEditingController();
 
-  String _currentItemSelected = 'Support';
+  String _currentItemSelected = 'Support'; // Default selected drawer item
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,7 @@ class SupportScreen extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                Scaffold.of(context).openDrawer();
+                Scaffold.of(context).openDrawer(); // Open drawer on button press
               },
             );
           },
@@ -55,6 +58,7 @@ class SupportScreen extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20.0),
             child: Column(
               children: <Widget>[
+                // User profile section in the drawer
                 Container(
                   height: 100.0,
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -63,7 +67,7 @@ class SupportScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 28.0,
-                        backgroundImage: AssetImage('assets/profile.png'),
+                        backgroundImage: AssetImage('assets/profile.png'), // Profile image
                       ),
                       SizedBox(width: 8.0),
                       Column(
@@ -71,7 +75,7 @@ class SupportScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'IRADUKUNDA Ange',
+                            'IRADUKUNDA Ange', // User's name
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
@@ -79,7 +83,7 @@ class SupportScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Online',
+                            'Online', // Online status
                             style: TextStyle(
                               color: Colors.green,
                               fontSize: 16.0,
@@ -90,21 +94,26 @@ class SupportScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Divider(color: Colors.white),
+                const Divider(color: Colors.white), // Divider line in the drawer
+                // List of drawer items
                 for (var item in drawerItems)
                   ListTile(
                     leading: Icon(item['icon'], color: Colors.white),
                     title: Text(
                       item['title'],
                       style: TextStyle(
-                        color: _currentItemSelected == item['title'] ? Colors.blue[900] : Colors.white,
-                        fontWeight: _currentItemSelected == item['title'] ? FontWeight.bold : FontWeight.normal,
+                        color: _currentItemSelected == item['title']
+                            ? Colors.blue[900]
+                            : Colors.white, // Highlight selected item
+                        fontWeight: _currentItemSelected == item['title']
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                       ),
                     ),
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pop(context); // Close drawer on item tap
                       if (_currentItemSelected != item['title']) {
-                        Navigator.pushNamed(context, item['route']);
+                        Navigator.pushNamed(context, item['route']); // Navigate to the selected screen
                       }
                     },
                   ),
@@ -114,7 +123,7 @@ class SupportScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        const Divider(color: Colors.white),
+                        const Divider(color: Colors.white), // Divider above logout option
                         ListTile(
                           leading: const Icon(Icons.exit_to_app, color: Colors.white),
                           title: const Text(
@@ -125,10 +134,10 @@ class SupportScreen extends StatelessWidget {
                             ),
                           ),
                           onTap: () async {
-                            await FirebaseAuth.instance.signOut();
+                            await FirebaseAuth.instance.signOut(); // Sign out the user
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
+                                builder: (context) => const LoginScreen(), // Navigate to login screen
                               ),
                             );
                           },
@@ -150,7 +159,7 @@ class SupportScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 50.0),
               const Text(
-                'What do you need from us?',
+                'What do you need from us?', // Title for the support form
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
@@ -158,6 +167,7 @@ class SupportScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 50.0),
+              // Text field for user's full name
               TextFormField(
                 controller: _nameController,
                 decoration: const InputDecoration(
@@ -168,6 +178,7 @@ class SupportScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20.0),
+              // Text field for user's email
               TextFormField(
                 controller: _emailController,
                 decoration: const InputDecoration(
@@ -182,7 +193,7 @@ class SupportScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Enter your problem',
+                    'Enter your problem', // Label for the problem description field
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
@@ -192,6 +203,7 @@ class SupportScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10.0),
+              // Text field for entering the problem description
               TextFormField(
                 controller: _problemController,
                 maxLines: 3,
@@ -206,12 +218,12 @@ class SupportScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
-                    final name = _nameController.text.trim();
-                    final email = _emailController.text.trim();
-                    final problem = _problemController.text.trim();
+                    final name = _nameController.text.trim(); // Get the entered name
+                    final email = _emailController.text.trim(); // Get the entered email
+                    final problem = _problemController.text.trim(); // Get the entered problem description
 
                     if (name.isEmpty || email.isEmpty || problem.isEmpty) {
-                      // Show error message
+                      // Show error message if any field is empty
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Please fill in all fields.')),
                       );
@@ -220,11 +232,12 @@ class SupportScreen extends StatelessWidget {
 
                     try {
                       final firestore = FirebaseFirestore.instance;
+                      // Add support request to Firestore
                       await firestore.collection('support_requests').add({
                         'name': name,
                         'email': email,
                         'problem': problem,
-                        'timestamp': FieldValue.serverTimestamp(),
+                        'timestamp': FieldValue.serverTimestamp(), // Add server timestamp
                       });
 
                       // Show success message
@@ -244,10 +257,10 @@ class SupportScreen extends StatelessWidget {
                     }
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.teal),
-                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.teal), // Button background color
+                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white), // Button text color
                   ),
-                  child: const Text('Send'),
+                  child: const Text('Send'), // Button label
                 ),
               ),
             ],
