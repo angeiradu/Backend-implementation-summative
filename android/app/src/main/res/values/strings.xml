@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">beyou</string>
+    <string name="facebook_app_id">840220921104352</string>
+    <string name="fb_login_protocol_scheme">fb840220921104352</string>
+    <string name="facebook_client_token">6a42f2f17e87b8be35ba2901c52cdea6</string>
+</resources>

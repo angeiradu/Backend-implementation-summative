@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "357310662582",
+    "project_id": "bein-2cc68",
+    "storage_bucket": "bein-2cc68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357310662582:android:2b56180e0f214ead33e317",
+        "android_client_info": {
+          "package_name": "com.example.be_fit_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp1VvtQLOo2tZ4PJLNgSeDaD9wLIxzd2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
