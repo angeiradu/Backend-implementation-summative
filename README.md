@@ -2,7 +2,7 @@
 
 ## Welcome to Be Fit App!
 
-Be Fit App is designed to help users manage their fitness journey using Flutter and Firebase Firestore. This guide will walk you through the features and functionalities of the app.
+Be Fit App is designed to help users manage their fitness journey. This guide will walk you through the features and functionalities of the app.
 
 ### Table of Contents
 1. [Introduction](#introduction)
@@ -14,6 +14,9 @@ Be Fit App is designed to help users manage their fitness journey using Flutter 
 ## Introduction
 
 Be Fit App provides a comprehensive platform for users to track their workouts, monitor their progress, and manage their fitness goals. The app features a user-friendly interface and a variety of tools to support users on their fitness journey.
+
+## Getting Started
+Upon launching the Be Fit App, you will be greeted with the home screen. To begin, click on the "Get Started" button.
 
 ## Features
 
