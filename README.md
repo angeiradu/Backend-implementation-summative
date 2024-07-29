@@ -58,9 +58,9 @@ Upon launching the Be Fit App, you will be greeted with the home screen. To begi
 
 ## Team Members
 
-- **Ange Marie Iradukunda
-- **Foibe Uwizeyimana
-- **Joselyne Nyaminga
+- Ange Marie Iradukunda
+- Foibe Uwizeyimana
+- Joselyne Marie Nyampinga
 
 We hope you enjoy using the Be Fit App to enhance your fitness journey! If you have any questions or feedback, feel free to reach out.
 
