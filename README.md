@@ -1,4 +1,4 @@
-# Be Fit App README
+# Be Fit App
 
 ## Welcome to Be Fit App!
 
