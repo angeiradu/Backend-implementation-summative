@@ -32,9 +32,11 @@ Be Fit App provides a comprehensive platform for users to track their workouts, 
   - **Sign In**: Use your Google account or email to sign in.
   - **Password Reset**: Reset your password via Firebase Authentication if forgotten.
 
-- **User Table**:
+- **Authentication**:
   - Displays email addresses, authentication providers, creation date, last sign-in date, and unique user identifiers (UIDs).
-
+ 
+- **Tables**:
+  - We have four tables in firestore database includes; Users, Items, support, tips, fitness levels, and Workout.
 ## Technology Stack
 
 - **Flutter**: Utilized for building the frontend, providing a responsive UI for both Android and iOS platforms.
