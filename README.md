@@ -9,7 +9,8 @@ Be Fit App is designed to help users manage their fitness journey. This guide wi
 2. [Features](#features)
 3. [Technology Stack](#technology-stack)
 4. [Development Process](#development-process)
-5. [Team Members](#team-members)
+5. [Demo video](#demo-video)
+6. [Team Members](#team-members)
 
 ## Introduction
 
@@ -55,7 +56,7 @@ Upon launching the Be Fit App, you will be greeted with the home screen. To begi
 
 3. **Backend Development**:
    - Set up Firebase Firestore for data storage and retrieval, implementing user authentication and data management functionalities.
-  
+  [
 ## Demo Video
   [Link to the video](https://youtu.be/7BXNipuH-NE)
 
