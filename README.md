@@ -59,6 +59,9 @@ Upon launching the Be Fit App, you will be greeted with the home screen. To begi
   [
 ## Demo Video
   [Link to the video](https://youtu.be/7BXNipuH-NE)
+  
+  ## Our APK 
+https://drive.google.com/file/d/1GTfg1D76Qa5oE4DC-nm3FadVRG8uRxEP/view?usp=sharing  
 
 ## Team Members
 
